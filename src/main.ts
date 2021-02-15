@@ -1,16 +1,12 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const packageJson = core.getInput('path')
+    core.debug(`Trying to load: '${packageJson}'`)
+    const versionFile = require(packageJson)
+    const version = versionFile.version
+    core.setOutput('version', version)
   } catch (error) {
     core.setFailed(error.message)
   }

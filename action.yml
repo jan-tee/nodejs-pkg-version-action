@@ -1,11 +1,14 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: nodejs-pkg-version-action
+author: Jan Tietze
+description: Outputs the version number from a package.json
 inputs:
-  milliseconds: # change this
+  path:
+    description: "Path to package.json"
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    default: "./package.json"
+outputs:
+  version:
+    description: "Version from package.json"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
